@@ -7,9 +7,9 @@ let bucketX = window.innerWidth / 2;
 let drops = [];
 
 let lastDropTime = 0;
-let dropInterval = 3500;   
+let dropInterval = 0;   
 let dropSpeed = 1;        
-const minDropInterval = 500; 
+const minDropInterval = 1; 
 const maxDropSpeed = 6;     
 
 let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
@@ -17,15 +17,15 @@ difficulty = difficulty ? difficulty.toLowerCase() : "normal";
 
 switch (difficulty) {
   case "easy":
-    dropInterval = 5000;
+    dropInterval = 7500;
     dropSpeed = 0.8;
     break;
   case "hard":
-    dropInterval = 2000;
+    dropInterval = 3500;
     dropSpeed = 1.5;
     break;
   default: 
-    dropInterval = 3500;
+    dropInterval = 5000;
     dropSpeed = 1;
     break;
 }

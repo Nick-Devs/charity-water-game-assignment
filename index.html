@@ -5,12 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catch the Water</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-family: "Proxima Nova", sans-serif;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 18px;
+    }
+
+    footer a {
+      color: #00bfff;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #ffd700;
+    }
+  </style>
 </head>
 <body>
   <div id="game">
     <div id="score">Score: 0</div>
     <div id="bucket"></div>
   </div>
+
+  <footer>
+    <a href="https://www.charitywater.org/" target="_blank">charity: water</a> |
+    <a href="https://www.charitywater.org/donate" target="_blank">Donate</a>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
