@@ -1,41 +1,45 @@
-body {
+html, body {
   margin: 0;
+  padding: 0;
   overflow: hidden;
-  background-color: #b3d9ff;
-  font-family: Arial, sans-serif;
+  height: 100%;
+  width: 100%;
 }
 
 #game {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to top, #5cb85c 10%, #b3d9ff 90%);
+  background: linear-gradient(to top, #87CEFA, #ffffff);
+  overflow: hidden;
 }
 
 #score {
   position: absolute;
   top: 10px;
-  right: 20px;
-  font-size: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+  font-size: 2.5vw; 
+  font-family: "Proxima Nova", sans-serif;
   font-weight: bold;
-  color: #ffa500;
 }
 
 #bucket {
   position: absolute;
-  bottom: 20px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
-  height: 150px;
-  background: gray;
-  border-radius: 10px 10px 0 0;
+  width: 100vw; 
+  height: 100vh; 
+  background: #8B4513;
+  border-radius: 0 0 50% 50%;
 }
 
 .drop {
   position: absolute;
-  width: 60px;
-  height: 100px;
-  background: #00aaff;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  width: 1.5vw;
+  height: 1.5vw;
+  background: #00bfff;
+  border-radius: 50%;
 }
