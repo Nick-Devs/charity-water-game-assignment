@@ -26,7 +26,7 @@ function updateDrops() {
   for (let i = drops.length - 1; i >= 0; i--) {
     const drop = drops[i];
     let top = parseFloat(drop.style.top);
-    top += 5;
+    top += 1;
     drop.style.top = top + "px";
 
     const dropRect = drop.getBoundingClientRect();
