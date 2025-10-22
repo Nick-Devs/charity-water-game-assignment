@@ -67,7 +67,7 @@ function updateDrops() {
       dropRect.right <= bucketRect.right
     ) {
       // caught
-      score += 10;
+      score += 50;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
@@ -97,8 +97,8 @@ function updateDifficulty() {
       break;
   }
 
-  dropInterval = Math.max(baseDropInterval - difficultyFactor * 80 * rampMultiplier);
-  dropSpeed = Math.min(dropSpeed + difficultyFactor * 0.05 * rampMultiplier); 
+  dropInterval = baseDropInterval - difficultyFactor * 800 * rampMultiplier;
+  dropSpeed = dropSpeed + difficultyFactor * 0.05 * rampMultiplier; 
 }
 
 function gameLoop(timestamp) {
