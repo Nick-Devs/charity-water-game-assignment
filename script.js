@@ -29,7 +29,7 @@ function updateDrops() {
     const drop = drops[i];
     let top = parseFloat(drop.style.top);
     top += 2;
-    drop.style.left = Math.random() * (gameWidth - 20) + "px";
+    drop.style.top = Math.random() * (gameWidth - 20) + "px";
 
     const dropRect = drop.getBoundingClientRect();
     const bucketRect = bucket.getBoundingClientRect();
