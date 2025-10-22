@@ -6,6 +6,9 @@ let score = 0;
 let bucketX = window.innerWidth / 2;
 let drops = [];
 
+let lastDropTime = 0;        
+const dropInterval = 700;      
+
 function createDrop() {
   const drop = document.createElement("div");
   drop.classList.add("drop");
@@ -16,9 +19,9 @@ function createDrop() {
 }
 
 function moveBucket(e) {
-  const step = 25;
+  const step = 10;
   if (e.key === "ArrowLeft" && bucketX > 0) bucketX -= step;
-  if (e.key === "ArrowRight" && bucketX < window.innerWidth - 60) bucketX += step;
+  if (e.key === "ArrowRight" && bucketX < window.innerWidth - 100) bucketX += step;
   bucket.style.left = bucketX + "px";
 }
 
@@ -26,7 +29,7 @@ function updateDrops() {
   for (let i = drops.length - 1; i >= 0; i--) {
     const drop = drops[i];
     let top = parseFloat(drop.style.top);
-    top += 1;
+    top += 1; 
     drop.style.top = top + "px";
 
     const dropRect = drop.getBoundingClientRect();
@@ -52,11 +55,15 @@ function updateDrops() {
   }
 }
 
-function gameLoop() {
-  if (Math.random() < 0.05) createDrop();
+function gameLoop(timestamp) {
+  if (timestamp - lastDropTime > dropInterval) {
+    createDrop();
+    lastDropTime = timestamp;
+  }
+
   updateDrops();
   requestAnimationFrame(gameLoop);
 }
 
 window.addEventListener("keydown", moveBucket);
-gameLoop();
+requestAnimationFrame(gameLoop);
