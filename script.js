@@ -10,10 +10,9 @@ let lastDropTime = 0;
 let dropInterval = 0;
 let dropSpeed = 1;
 
-let baseDropInterval = 5000; 
-let minDropInterval = 800;    
-let maxDropSpeed = 3;         
-
+let baseDropInterval = 5000;
+let minDropInterval = 800;
+let maxDropSpeed = 3;
 
 let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
 difficulty = difficulty ? difficulty.toLowerCase() : "normal";
@@ -35,19 +34,35 @@ switch (difficulty) {
 
 dropInterval = baseDropInterval;
 
+function getRelativeWidth(px) {
+  return (px / 1920) * window.innerWidth; 
+}
+
+function getRelativeHeight(px) {
+  return (px / 1080) * window.innerHeight;
+}
+
 function createDrop() {
   const drop = document.createElement("div");
   drop.classList.add("drop");
-  drop.style.left = Math.random() * (window.innerWidth - 20) + "px";
+
+  const dropSize = getRelativeWidth(20);
+  drop.style.width = `${dropSize}px`;
+  drop.style.height = `${dropSize}px`;
+  drop.style.left = Math.random() * (window.innerWidth - dropSize) + "px";
   drop.style.top = "0px";
+
   game.appendChild(drop);
   drops.push(drop);
 }
 
 function moveBucket(e) {
-  const step = 20;
+  const step = getRelativeWidth(20); // scale with screen size
+  const bucketWidth = bucket.offsetWidth;
+
   if (e.key === "ArrowLeft" && bucketX > 0) bucketX -= step;
-  if (e.key === "ArrowRight" && bucketX < window.innerWidth - 100) bucketX += step;
+  if (e.key === "ArrowRight" && bucketX < window.innerWidth - bucketWidth) bucketX += step;
+
   bucket.style.left = bucketX + "px";
 }
 
@@ -71,7 +86,7 @@ function updateDrops() {
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
-    } else if (top > window.innerHeight - 20) {
+    } else if (top > window.innerHeight - getRelativeHeight(20)) {
       // missed
       score -= 5;
       scoreDisplay.textContent = "Score: " + score;
@@ -80,6 +95,7 @@ function updateDrops() {
     }
   }
 }
+
 
 function updateDifficulty() {
   const difficultyFactor = Math.floor(score / 100);
@@ -97,9 +113,18 @@ function updateDifficulty() {
       break;
   }
 
-  dropInterval = baseDropInterval - difficultyFactor * 800 * rampMultiplier;
+  dropInterval = Math.max(
+    baseDropInterval - difficultyFactor * 800 * rampMultiplier,
+    minDropInterval
+  );
+
+  dropSpeed = Math.min(
+    1 + difficultyFactor * 0.2 * rampMultiplier,
+    maxDropSpeed
+  );
 }
 
+// ✅ Main loop
 function gameLoop(timestamp) {
   if (timestamp - lastDropTime > dropInterval) {
     createDrop();
@@ -108,9 +133,14 @@ function gameLoop(timestamp) {
 
   updateDrops();
   updateDifficulty();
-
   requestAnimationFrame(gameLoop);
 }
+
+// ✅ Handle resizing (keep bucket visible)
+window.addEventListener("resize", () => {
+  bucketX = Math.min(bucketX, window.innerWidth - bucket.offsetWidth);
+  bucket.style.left = bucketX + "px";
+});
 
 window.addEventListener("keydown", moveBucket);
 requestAnimationFrame(gameLoop);
