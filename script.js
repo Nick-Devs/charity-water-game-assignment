@@ -12,7 +12,7 @@ let dropSpeed = 1;
 
 let baseDropInterval = 5000; 
 let minDropInterval = 800;    
-let maxDropSpeed = 6;         
+let maxDropSpeed = 3;         
 
 
 let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
@@ -45,7 +45,7 @@ function createDrop() {
 }
 
 function moveBucket(e) {
-  const step = 10;
+  const step = 20;
   if (e.key === "ArrowLeft" && bucketX > 0) bucketX -= step;
   if (e.key === "ArrowRight" && bucketX < window.innerWidth - 100) bucketX += step;
   bucket.style.left = bucketX + "px";
@@ -97,8 +97,8 @@ function updateDifficulty() {
       break;
   }
 
-  dropInterval = Math.max(baseDropInterval - difficultyFactor * 80 * rampMultiplier, minDropInterval);
-  dropSpeed = Math.min(dropSpeed + difficultyFactor * 0.05 * rampMultiplier, maxDropSpeed); 
+  dropInterval = Math.max(baseDropInterval - difficultyFactor * 80 * rampMultiplier);
+  dropSpeed = Math.min(dropSpeed + difficultyFactor * 0.05 * rampMultiplier); 
 }
 
 function gameLoop(timestamp) {
