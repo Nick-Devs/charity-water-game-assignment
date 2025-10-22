@@ -90,7 +90,7 @@ function updateDifficulty() {
       break;
   }
 
-  dropInterval = Math.max(800 - difficultyFactor * 80 * rampMultiplier, minDropInterval);
+   dropInterval = baseDropInterval - difficultyFactor * 800 * rampMultiplier;
 }
 
 function gameLoop(timestamp) {
