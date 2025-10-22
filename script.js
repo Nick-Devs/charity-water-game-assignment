@@ -32,6 +32,7 @@ switch (difficulty) {
 
 let dropInterval = baseDropInterval;
 
+// ✅ Create drops within window width
 function createDrop() {
   const drop = document.createElement("div");
   drop.classList.add("drop");
@@ -59,6 +60,7 @@ function updateDrops() {
     const dropRect = drop.getBoundingClientRect();
     const bucketRect = bucket.getBoundingClientRect();
 
+    // ✅ Collision detection
     if (
       dropRect.bottom >= bucketRect.top &&
       dropRect.left >= bucketRect.left &&
@@ -68,8 +70,7 @@ function updateDrops() {
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
-    }
-    else if (top > window.innerHeight - 20) {
+    } else if (top > window.innerHeight - 20) {
       score -= 5;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
@@ -111,13 +112,15 @@ function gameLoop(timestamp) {
   requestAnimationFrame(gameLoop);
 }
 
-
+// ✅ Handle responsive resizing
 window.addEventListener("resize", () => {
+  // Keep bucket within new screen width
   if (bucketX > window.innerWidth - bucket.offsetWidth) {
     bucketX = window.innerWidth - bucket.offsetWidth - 10;
   }
   bucket.style.left = bucketX + "px";
 
+  // Clamp drops within screen
   for (let drop of drops) {
     const left = parseFloat(drop.style.left);
     if (left > window.innerWidth - 20) {
@@ -125,31 +128,6 @@ window.addEventListener("resize", () => {
     }
   }
 });
-
-let isDragging = false;
-
-game.addEventListener("touchstart", (e) => {
-  isDragging = true;
-  moveBucketTouch(e);
-});
-
-game.addEventListener("touchmove", (e) => {
-  if (isDragging) moveBucketTouch(e);
-});
-
-game.addEventListener("touchend", () => {
-  isDragging = false;
-});
-
-function moveBucketTouch(e) {
-  const touch = e.touches[0];
-  const x = touch.clientX;
-
-  bucketX = x - bucket.offsetWidth / 2;
-
-  bucketX = Math.max(0, Math.min(bucketX, window.innerWidth - bucket.offsetWidth));
-  bucket.style.left = bucketX + "px";
-}
 
 window.addEventListener("keydown", moveBucket);
 requestAnimationFrame(gameLoop);
