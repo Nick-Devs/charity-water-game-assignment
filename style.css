@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #b3d9ff;
+  font-family: Arial, sans-serif;
+}
+
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to top, #5cb85c 10%, #b3d9ff 90%);
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffa500;
+}
+
+#bucket {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: gray;
+  border-radius: 10px 10px 0 0;
+}
+
+.drop {
+  position: absolute;
+  width: 15px;
+  height: 25px;
+  background: #00aaff;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
