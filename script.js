@@ -7,7 +7,7 @@ let bucketX = window.innerWidth / 2;
 let drops = [];
 
 let lastDropTime = 0;        
-const dropInterval = 700;      
+const dropInterval = 7000;      
 
 function createDrop() {
   const drop = document.createElement("div");
