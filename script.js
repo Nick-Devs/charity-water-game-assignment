@@ -32,7 +32,6 @@ switch (difficulty) {
 
 let dropInterval = baseDropInterval;
 
-// ✅ Create drops within window width
 function createDrop() {
   const drop = document.createElement("div");
   drop.classList.add("drop");
@@ -60,7 +59,6 @@ function updateDrops() {
     const dropRect = drop.getBoundingClientRect();
     const bucketRect = bucket.getBoundingClientRect();
 
-    // ✅ Collision detection
     if (
       dropRect.bottom >= bucketRect.top &&
       dropRect.left >= bucketRect.left &&
@@ -112,15 +110,12 @@ function gameLoop(timestamp) {
   requestAnimationFrame(gameLoop);
 }
 
-// ✅ Handle responsive resizing
 window.addEventListener("resize", () => {
-  // Keep bucket within new screen width
   if (bucketX > window.innerWidth - bucket.offsetWidth) {
     bucketX = window.innerWidth - bucket.offsetWidth - 10;
   }
   bucket.style.left = bucketX + "px";
 
-  // Clamp drops within screen
   for (let drop of drops) {
     const left = parseFloat(drop.style.left);
     if (left > window.innerWidth - 20) {
