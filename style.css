@@ -3,6 +3,8 @@ body {
   overflow: hidden;
   background-color: #b3d9ff;
   font-family: Arial, sans-serif;
+  touch-action: none; 
+  user-select: none;  
 }
 
 #game {
@@ -30,6 +32,10 @@ body {
   height: 150px;
   background: gray;
   border-radius: 10px 10px 0 0;
+}
+
+#bucket, .drop {
+  transition: left 0.1s ease;
 }
 
 .drop {

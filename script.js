@@ -14,6 +14,7 @@ const maxDropSpeed = 6;
 let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
 difficulty = difficulty ? difficulty.toLowerCase() : "normal";
 
+let baseDropInterval;
 switch (difficulty) {
   case "easy":
     baseDropInterval = 7500;
@@ -43,7 +44,8 @@ function createDrop() {
 function moveBucket(e) {
   const step = 15;
   if (e.key === "ArrowLeft" && bucketX > 0) bucketX -= step;
-  if (e.key === "ArrowRight" && bucketX < window.innerWidth - 100) bucketX += step;
+  if (e.key === "ArrowRight" && bucketX < window.innerWidth - bucket.offsetWidth)
+    bucketX += step;
   bucket.style.left = bucketX + "px";
 }
 
@@ -66,7 +68,8 @@ function updateDrops() {
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
-    } else if (top > window.innerHeight - 20) {
+    }
+    else if (top > window.innerHeight - 20) {
       score -= 5;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
@@ -91,7 +94,10 @@ function updateDifficulty() {
       break;
   }
 
-   dropInterval = baseDropInterval - difficultyFactor * 800 * rampMultiplier;
+  dropInterval = Math.max(
+    minDropInterval,
+    baseDropInterval - difficultyFactor * 800 * rampMultiplier
+  );
 }
 
 function gameLoop(timestamp) {
@@ -102,8 +108,47 @@ function gameLoop(timestamp) {
 
   updateDrops();
   updateDifficulty();
-
   requestAnimationFrame(gameLoop);
+}
+
+
+window.addEventListener("resize", () => {
+  if (bucketX > window.innerWidth - bucket.offsetWidth) {
+    bucketX = window.innerWidth - bucket.offsetWidth - 10;
+  }
+  bucket.style.left = bucketX + "px";
+
+  for (let drop of drops) {
+    const left = parseFloat(drop.style.left);
+    if (left > window.innerWidth - 20) {
+      drop.style.left = window.innerWidth - 25 + "px";
+    }
+  }
+});
+
+let isDragging = false;
+
+game.addEventListener("touchstart", (e) => {
+  isDragging = true;
+  moveBucketTouch(e);
+});
+
+game.addEventListener("touchmove", (e) => {
+  if (isDragging) moveBucketTouch(e);
+});
+
+game.addEventListener("touchend", () => {
+  isDragging = false;
+});
+
+function moveBucketTouch(e) {
+  const touch = e.touches[0];
+  const x = touch.clientX;
+
+  bucketX = x - bucket.offsetWidth / 2;
+
+  bucketX = Math.max(0, Math.min(bucketX, window.innerWidth - bucket.offsetWidth));
+  bucket.style.left = bucketX + "px";
 }
 
 window.addEventListener("keydown", moveBucket);
