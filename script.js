@@ -7,7 +7,6 @@ let bucketX = window.innerWidth / 2;
 let drops = [];
 
 let lastDropTime = 0;
-let dropInterval = 800;
 let dropSpeed = 1;
 const minDropInterval = 200;
 const maxDropSpeed = 6;
@@ -29,6 +28,8 @@ switch (difficulty) {
     dropSpeed = 1;
     break;
 }
+
+let dropInterval = baseDropInterval;
 
 function createDrop() {
   const drop = document.createElement("div");
