@@ -6,14 +6,12 @@ let score = 0;
 let bucketX = window.innerWidth / 2;
 let drops = [];
 
-// --- Spawn & difficulty control ---
 let lastDropTime = 0;
 let dropInterval = 800;
 let dropSpeed = 1;
 const minDropInterval = 200;
 const maxDropSpeed = 6;
 
-// --- Difficulty settings ---
 let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
 difficulty = difficulty ? difficulty.toLowerCase() : "normal";
 
