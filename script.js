@@ -98,7 +98,6 @@ function updateDifficulty() {
   }
 
   dropInterval = baseDropInterval - difficultyFactor * 800 * rampMultiplier;
-  dropSpeed = dropSpeed + difficultyFactor * 0.05 * rampMultiplier; 
 }
 
 function gameLoop(timestamp) {
@@ -108,7 +107,7 @@ function gameLoop(timestamp) {
   }
 
   updateDrops();
-  //updateDifficulty();
+  updateDifficulty();
 
   requestAnimationFrame(gameLoop);
 }
