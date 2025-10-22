@@ -6,8 +6,29 @@ let score = 0;
 let bucketX = window.innerWidth / 2;
 let drops = [];
 
-let lastDropTime = 0;        
-const dropInterval = 7000;      
+let lastDropTime = 0;
+let dropInterval = 3500;   
+let dropSpeed = 1;        
+const minDropInterval = 500; 
+const maxDropSpeed = 6;     
+
+let difficulty = prompt("Choose difficulty: easy, normal, or hard", "normal");
+difficulty = difficulty ? difficulty.toLowerCase() : "normal";
+
+switch (difficulty) {
+  case "easy":
+    dropInterval = 5000;
+    dropSpeed = 0.8;
+    break;
+  case "hard":
+    dropInterval = 2000;
+    dropSpeed = 1.5;
+    break;
+  default: 
+    dropInterval = 3500;
+    dropSpeed = 1;
+    break;
+}
 
 function createDrop() {
   const drop = document.createElement("div");
@@ -29,7 +50,7 @@ function updateDrops() {
   for (let i = drops.length - 1; i >= 0; i--) {
     const drop = drops[i];
     let top = parseFloat(drop.style.top);
-    top += 1; 
+    top += dropSpeed; 
     drop.style.top = top + "px";
 
     const dropRect = drop.getBoundingClientRect();
@@ -55,6 +76,26 @@ function updateDrops() {
   }
 }
 
+function updateDifficulty() {
+  const difficultyFactor = Math.floor(score / 100);
+  let rampMultiplier = 1;
+
+  switch (difficulty) {
+    case "easy":
+      rampMultiplier = 0.6;
+      break;
+    case "hard":
+      rampMultiplier = 1.4;
+      break;
+    default:
+      rampMultiplier = 1;
+      break;
+  }
+
+  dropInterval = Math.max(800 - difficultyFactor * 80 * rampMultiplier, minDropInterval);
+  dropSpeed = Math.min(1 + difficultyFactor * 0.5 * rampMultiplier, maxDropSpeed);
+}
+
 function gameLoop(timestamp) {
   if (timestamp - lastDropTime > dropInterval) {
     createDrop();
@@ -62,6 +103,8 @@ function gameLoop(timestamp) {
   }
 
   updateDrops();
+  updateDifficulty();
+
   requestAnimationFrame(gameLoop);
 }
 
