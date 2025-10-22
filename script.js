@@ -19,15 +19,15 @@ difficulty = difficulty ? difficulty.toLowerCase() : "normal";
 
 switch (difficulty) {
   case "easy":
-    dropInterval = 1000;
+    baseDropInterval = 7500;
     dropSpeed = 0.8;
     break;
   case "hard":
-    dropInterval = 600;
+    baseDropInterval = 3500;
     dropSpeed = 1.5;
     break;
-  default: 
-    dropInterval = 800;
+  default:
+    baseDropInterval = 5000;
     dropSpeed = 1;
     break;
 }
