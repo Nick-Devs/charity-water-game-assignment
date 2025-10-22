@@ -1,8 +1,8 @@
 const game = document.getElementById("game");
 const bucket = document.getElementById("bucket");
 const scoreDisplay = document.getElementById("score");
-const gameWidth = 400;
-const gameHeight = 600;
+const gameWidth = 1000;
+const gameHeight = 850;
 
 let score = 0;
 let bucketX = window.innerWidth / 2;
