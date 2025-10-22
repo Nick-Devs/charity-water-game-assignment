@@ -27,7 +27,7 @@ switch (difficulty) {
     baseDropInterval = 3500;
     dropSpeed = 1.5;
     break;
-  default: // normal
+  default:
     baseDropInterval = 5000;
     dropSpeed = 1;
     break;
@@ -67,7 +67,7 @@ function updateDrops() {
       dropRect.right <= bucketRect.right
     ) {
       // caught
-      score += 50;
+      score += 10;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
@@ -108,7 +108,7 @@ function gameLoop(timestamp) {
   }
 
   updateDrops();
-  updateDifficulty();
+  //updateDifficulty();
 
   requestAnimationFrame(gameLoop);
 }
