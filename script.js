@@ -66,13 +66,13 @@ function updateDrops() {
       dropRect.left >= bucketRect.left &&
       dropRect.right <= bucketRect.right
     ) {
-      // Caught
+      // caught
       score += 10;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
       drops.splice(i, 1);
     } else if (top > window.innerHeight - 20) {
-      // Missed
+      // missed
       score -= 5;
       scoreDisplay.textContent = "Score: " + score;
       game.removeChild(drop);
